@@ -1,0 +1,60 @@
+/* LAYOUT - central vertical alignment & background*/ 
+.center_vertically {
+    height: 90%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.vertical_alignment {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.wallpaper {
+    background-image: linear-gradient(45deg, red, blue);
+}
+
+.circle {
+	border-radius: 50%;
+	width: 500px;
+	height: 500px; 
+	/* width and height can be anything, as long as they're equal */
+}
+
+/* FORMATTING */ 
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 1em;
+    background-color: rgba(255, 255, 255, 0.5);
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+    color: white;
+}
+
+header {
+    margin: 0 auto;
+    padding: 1em;
+}
+
+/* Outside of Main */
+footer {
+    margin:  0 auto;
+    padding: 1em;
+    color: white;
+}
+
+/* MUTABLE CONTENT  */ 
+
+.location {}
+.
