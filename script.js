@@ -1,8 +1,8 @@
-// Geolocation Code Resources: 
+// GEOLOCATION CODE RESOURCES: 
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation
 // https://www.sitepoint.com/html5-geolocation/ - Code from this site.
 // http://youmightnotneedjquery.com/ 
-
+// CREDITS:
 // windDegtoCardinalDirection courtesy of Pascal's code here: https://stackoverflow.com/questions/7490660/converting-wind-direction-in-angles-to-text-words#7490772
 
 
@@ -11,20 +11,6 @@
 const tempC = "&#176C";
 const tempF = "&#176F";
 let tempUnit = tempC;
-/*let geolocation = '';
-let temp = '';
-let tempMax = '';
-let tempMin = '';
-let detailedDescription = '';
-//let icon = ;
-let humidity = '';
-let pressure = '';
-let windSpeed = '';
-let windDirection = '';
-let sunRise = '';
-let sunSet = '';
-// no need to declare???? */
-
 
 function detailedWeatherDescription(obj) {
     if (obj['weather'].length > 1) {
@@ -41,6 +27,7 @@ function detailedWeatherDescription(obj) {
 }
 
 function windDegtoCardinalDirection(obj) {
+    //Code via stackoverload - see resources and credits above
     let deg = obj['wind']['deg'];
     while (deg < 0) deg += 360;
     while (deg >= 360) deg -= 360;
@@ -49,51 +36,49 @@ function windDegtoCardinalDirection(obj) {
     return arr[Math.abs(val)];
 }
 
-function displayIcons(obj) {
-    let icons = obj['weather'].map(x => x['icon']);
-    console.log(icons);
-    for (let x of icons) {
-        if (x !== undefined) {
-            let img = new Image();
-            img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + [x] + ".png?1499366021399";
-            console.log(x, img.src);
-            return document.getElementById("icon").appendChild(img);
-        }
-    }
+// showing incorret time - need to fix
+function daylight(obj, sun) {
+    var time = new Date(obj['sys'][sun]);
+    return time.toLocaleTimeString(); 
 }
 
 function defineWeatherVariables(obj) {
     geolocation = obj['name'];
     temp = Math.round(obj['main']['temp']) + tempUnit;
-    // tempMax = obj['main']['temp_max'] + tempUnit;
-    // tempMin = obj['main']['temp_min'] + tempUnit;
     detailedDescription = detailedWeatherDescription(obj);
     humidity = 'Humidity: ' + obj['main']['humidity'] + '&#37';
     pressure = 'Pressure: ' + Math.round(obj['main']['pressure']) + ' hPa';
     windSpeed = 'Wind: ' + obj['wind']['speed'] + 'km/hr';
     windDirection = windDegtoCardinalDirection(obj);
-    // sunRise =
-    // sunSet = 
+    sunRise = daylight(obj, 'sunrise');
+    sunSet = daylight(obj, 'sunset');
+}
 
-
-
+function displayIcons(obj) {
+    let icons = obj['weather'].map(x => x['icon']);
+    for (let x of icons) {
+        if (x !== undefined) {
+            let img = new Image();
+            img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + [x] + ".png?1499366021399";
+            return document.getElementById("icon").appendChild(img);
+        }
+    }
 }
 
 function displayCurrentWeather(obj) {
     defineWeatherVariables(obj);
+    displayIcons(obj); // possible multiple icons for variable weather addressed by function
     document.getElementById("location").innerHTML = geolocation;
     document.getElementById("temperature").innerHTML = temp;
-    displayIcons(obj); // possibilty of more than one icon for variable weather addressed by function
     document.getElementById("description").innerHTML = detailedDescription;
     document.getElementById("humidity").innerHTML = humidity;
     document.getElementById("pressure").innerHTML = pressure;
     document.getElementById("wind-speed").innerHTML = windSpeed;
     document.getElementById("wind-direction").innerHTML = windDirection;
-    // document.getElementById("sunrise").innerHTML = sunRise;
-    // document.getElementById("sunset").innerHTML = sunSet;
+    document.getElementById("sunrise").innerHTML = sunRise;
+    document.getElementById("sunset").innerHTML = sunSet;
 
 }
-
 
 function getCurrentWeather(latitude, longitude) {
     var request = new XMLHttpRequest();
