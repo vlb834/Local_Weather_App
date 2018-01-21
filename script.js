@@ -11,6 +11,17 @@
 const tempC = "&#176C";
 const tempF = "&#176F";
 let tempUnit = tempC;
+ 
+function toggleCF() {
+    if (tempUnit === tempC) {
+        tempUnit = tempC;
+        temp = (temp * 9 / 5) + 32;
+    } else if (tempUnit === tempF) {
+        tempUnit = tempC;
+        temp = (temp - 32) * 5 / 9;
+    }
+};
+document.getElementsByTagName("button").addEventListener("click", toggleCF());
 
 function detailedWeatherDescription(obj) {
     if (obj['weather'].length > 1) {
@@ -76,7 +87,6 @@ function displayCurrentWeather(obj) {
     document.getElementById("wind").innerHTML = windSpeed + ' ' + windDirection;
     document.getElementById("sunrise").innerHTML = sunRise;
     document.getElementById("sunset").innerHTML = sunSet;
-
 }
 
 function getCurrentWeather(latitude, longitude) {
@@ -131,8 +141,7 @@ function run() {
     } else {
         alert('Geolocation is not supported in your browser');
     }
-
-
+    
 }
 // in case the document is already rendered
 if (document.readyState != 'loading') run();
