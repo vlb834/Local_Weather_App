@@ -47,6 +47,17 @@ header {
     padding: 1em;
 }
 
+details {
+    
+}
+details[open] summary:after {
+    border: 1px solid white;
+  }
+  
+  *:focus {
+    outline: none;
+}
+
 /* Outside of Main */
 footer {
     margin:  0 auto;
@@ -55,6 +66,11 @@ footer {
 }
 
 /* MUTABLE CONTENT  */ 
-
-.location {}
-.
+#location {}
+#temperature {}
+#weather {}
+#humidity {}
+#wind-speed {}
+#wind-direction {}
+#sunrise {}
+#sunset {}
