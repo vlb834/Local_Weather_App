@@ -22,32 +22,74 @@ body {
     /* width and height can be anything, as long as they're equal */
 }
 
-
-/* FORMATTING */
+/* FORMATTING 
+Roboto:300,400,400italic,700
+*/
 
 main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    padding: 1em;
     background-color: rgba(255, 255, 255, 0.5);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    /* text formatting */
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1em;
     text-align: center;
     color: white;
 }
 
 header {
     margin: 0 auto;
-    padding: 1em;
+    padding: .5em;
+    font-size: 2em;
+    font-weight: 700;
+    letter-spacing: .1em;
 }
 
-details {}
+#temperature {
+    font-size: 2em;
+}
+
+figure {
+    margin: 0;
+}
+
+img {
+    height: 6em;
+}
+
+details {
+    line-height: 1.6;
+    font-weight: 300;
+}
 
 *:focus {
     outline: none;
+}
+
+#description {
+    font-size: 1.2em;
+    font-style: italic;
+}
+
+data {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+time {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+.sun {
+    height: 5%;
+    padding-top: .2em;
 }
 
 button {
@@ -55,15 +97,16 @@ button {
     margin: 1em auto 0 auto;
 }
 
-
 /* Outside of Main */
 
 footer {
     margin: 0 auto;
     padding: 1em;
     color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: .8em;
 }
-
 
 /* MUTABLE CONTENT  */
 

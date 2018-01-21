@@ -73,8 +73,7 @@ function displayCurrentWeather(obj) {
     document.getElementById("description").innerHTML = detailedDescription;
     document.getElementById("humidity").innerHTML = humidity;
     document.getElementById("pressure").innerHTML = pressure;
-    document.getElementById("wind-speed").innerHTML = windSpeed;
-    document.getElementById("wind-direction").innerHTML = windDirection;
+    document.getElementById("wind").innerHTML = windSpeed + ' ' + windDirection;
     document.getElementById("sunrise").innerHTML = sunRise;
     document.getElementById("sunset").innerHTML = sunSet;
 
