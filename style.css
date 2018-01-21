@@ -53,10 +53,8 @@ details {}
 button {
     width: 5em;
     margin: 1em auto 0 auto;
-  
 }
- /* margin-top: auto; 
-} */
+
 
 /* Outside of Main */
 
@@ -68,22 +66,6 @@ footer {
 
 
 /* MUTABLE CONTENT  */
-
-#location {}
-
-#temperature {}
-
-#weather {}
-
-#humidity {}
-
-#wind-speed {}
-
-#wind-direction {}
-
-#sunrise {}
-
-#sunset {}
 
 #wallpaper {
     background-image: linear-gradient(45deg, red, blue);
