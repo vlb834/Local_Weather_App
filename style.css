@@ -22,6 +22,7 @@ body {
     /* width and height can be anything, as long as they're equal */
 }
 
+
 /* FORMATTING 
 Roboto:300,400,400italic,700
 */
@@ -97,6 +98,7 @@ button {
     margin: 1em auto 0 auto;
 }
 
+
 /* Outside of Main */
 
 footer {
@@ -107,6 +109,7 @@ footer {
     font-weight: 300;
     font-size: .8em;
 }
+
 
 /* MUTABLE CONTENT  */
 

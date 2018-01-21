@@ -2,7 +2,8 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation
 // https://www.sitepoint.com/html5-geolocation/ - Code from this site.
 // http://youmightnotneedjquery.com/ 
-// EPOCH TIME CONVERTER : https://www.epochconverter.com/programming/#javascript
+// EPOCH TIME CONVERTER :
+// https://www.epochconverter.com/programming/#javascript
 // CREDITS:
 // windDegtoCardinalDirection courtesy of Pascal's code here: https://stackoverflow.com/questions/7490660/converting-wind-direction-in-angles-to-text-words#7490772
 
@@ -54,6 +55,11 @@ function daylight(obj, sun) {
     return time.toLocaleTimeString();
 }
 
+const TempColors = [purple, indigo, darkblue, blue, cornflowerblue, lightblue, yellow, orange, darkorange, orangered, red, darkred];
+const WeatherColors = {Fog: grey, Mist: grey, Drizzle: grey, Rain: blue, Snow: white};
+function assignColors() {
+}
+
 function defineWeatherVariables(obj) {
     geolocation = obj['name'];
     temp = Math.round(obj['main']['temp']);
@@ -64,7 +70,10 @@ function defineWeatherVariables(obj) {
     windDirection = windDegtoCardinalDirection(obj);
     sunRise = daylight(obj, 'sunrise');
     sunSet = daylight(obj, 'sunset');
-
+    colorTemp = 'yellow';
+    colorWeather = 'green';
+    assignColors();
+    gradient = 'linear-gradient(45deg, ' + colorTemp + ', ' + colorWeather + ')';
 }
 
 function displayIcons(obj) {
@@ -89,6 +98,8 @@ function displayCurrentWeather(obj) {
     document.getElementById("wind").innerHTML = windSpeed + ' ' + windDirection;
     document.getElementById("sunrise").innerHTML = sunRise;
     document.getElementById("sunset").innerHTML = sunSet;
+   // document.getElementById("wallpaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
+   document.getElementById("wallpaper").style["background-image"] = gradient;
 }
 
 function getCurrentWeather(latitude, longitude) {
