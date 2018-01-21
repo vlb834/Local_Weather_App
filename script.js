@@ -8,20 +8,20 @@
 
 
 // GLOBAL VARIABLES //
-const tempC = "&#176C";
-const tempF = "&#176F";
-let tempUnit = tempC;
- 
-function toggleCF() {
-    if (tempUnit === tempC) {
-        tempUnit = tempC;
+let tempUnit = "&#176C";
+let temp = 0;
+
+function toggleTempUnit() {
+    if (tempUnit === "&#176C") {
+        tempUnit = "&#176F";
         temp = (temp * 9 / 5) + 32;
-    } else if (tempUnit === tempF) {
-        tempUnit = tempC;
+        return document.getElementById("temperature").innerHTML = temp + tempUnit;
+    } else if (tempUnit === "&#176F") {
+        tempUnit = "&#176C";
         temp = (temp - 32) * 5 / 9;
+        return document.getElementById("temperature").innerHTML = temp + tempUnit;
     }
-};
-document.getElementsByTagName("button").addEventListener("click", toggleCF());
+}
 
 function detailedWeatherDescription(obj) {
     if (obj['weather'].length > 1) {
@@ -50,12 +50,12 @@ function windDegtoCardinalDirection(obj) {
 // showing incorret time - need to fix
 function daylight(obj, sun) {
     var time = new Date(obj['sys'][sun]);
-    return time.toLocaleTimeString(); 
+    return time.toLocaleTimeString();
 }
 
 function defineWeatherVariables(obj) {
     geolocation = obj['name'];
-    temp = Math.round(obj['main']['temp']) + tempUnit;
+    temp = Math.round(obj['main']['temp']);
     detailedDescription = detailedWeatherDescription(obj);
     humidity = 'Humidity: ' + obj['main']['humidity'] + '&#37';
     pressure = 'Pressure: ' + Math.round(obj['main']['pressure']) + ' hPa';
@@ -63,6 +63,7 @@ function defineWeatherVariables(obj) {
     windDirection = windDegtoCardinalDirection(obj);
     sunRise = daylight(obj, 'sunrise');
     sunSet = daylight(obj, 'sunset');
+
 }
 
 function displayIcons(obj) {
@@ -80,7 +81,7 @@ function displayCurrentWeather(obj) {
     defineWeatherVariables(obj);
     displayIcons(obj); // possible multiple icons for variable weather addressed by function
     document.getElementById("location").innerHTML = geolocation;
-    document.getElementById("temperature").innerHTML = temp;
+    document.getElementById("temperature").innerHTML = temp + tempUnit;
     document.getElementById("description").innerHTML = detailedDescription;
     document.getElementById("humidity").innerHTML = humidity;
     document.getElementById("pressure").innerHTML = pressure;
@@ -134,14 +135,12 @@ function showError(error) {
 // JS FOR PAGE LOAD - retrieve HTML5 geolocation// 
 
 function run() {
-
     if (navigator.geolocation) {
         // Get the user's current position
         navigator.geolocation.getCurrentPosition(usePosition, showError);
     } else {
         alert('Geolocation is not supported in your browser');
     }
-    
 }
 // in case the document is already rendered
 if (document.readyState != 'loading') run();
@@ -151,3 +150,7 @@ else if (document.addEventListener) document.addEventListener('DOMContentLoaded'
 else document.attachEvent('onreadystatechange', function () {
     if (document.readyState == 'complete') run();
 });
+
+window.onload = function () {
+    document.getElementById("toggleTemp").addEventListener("click", toggleTempUnit, false);
+}
