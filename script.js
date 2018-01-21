@@ -3,56 +3,95 @@
 // https://www.sitepoint.com/html5-geolocation/ - Code from this site.
 // http://youmightnotneedjquery.com/ 
 
+// windDegtoCardinalDirection courtesy of Pascal's code here: https://stackoverflow.com/questions/7490660/converting-wind-direction-in-angles-to-text-words#7490772
+
+
 
 // GLOBAL VARIABLES //
 const tempC = "&#176C";
 const tempF = "&#176F";
 let tempUnit = tempC;
-let geolocation = '';
+/*let geolocation = '';
 let temp = '';
 let tempMax = '';
 let tempMin = '';
+let detailedDescription = '';
 //let icon = ;
 let humidity = '';
+let pressure = '';
 let windSpeed = '';
-//let windDirection = 
-let detailedDescription = '';
+let windDirection = '';
 let sunRise = '';
 let sunSet = '';
+// no need to declare???? */
 
-function defineWeatherVariables(obj) {
-    geolocation = obj['name'];
-    temp = obj['main']['temp'] + tempUnit;
-    tempMax = obj['main']['temp_max'] + tempUnit;
-    tempMin = obj['main']['temp_min'] + tempUnit;
-    //icon = ;
-    humidity = 'Humidity: ' + obj['main']['humidity'] + '&#37';
-    windSpeed = 'Wind: ' + obj['wind']['speed'] + 'km/hr';
-    // windDirection = obj['wind']['deg'-.map(x => x['description'])
-    // sunRise =
-    // sunSet = 
+
+function detailedWeatherDescription(obj) {
     if (obj['weather'].length > 1) {
         let descriptions = obj['weather'].map(x => x['description']);
-        detailedDescription = 'Mix of ';
+        let weather = 'Mix of ';
         for (let x of descriptions) {
-            detailedDescription = detailedDescription.concat(x + ', ');
+            weather = weather.concat(x + ', ');
         }
-        detailedDescription = detailedDescription.slice(0, detailedDescription.length - 2) + '.';
+        return weather = weather.slice(0, weather.length - 2) + '.';
     } else {
-        detailedDescription = obj['weather']['description'];
-        detailedDescription = detailedDescription.charAt(0).toUpperCase() + detailedDescription.slice(1);
+        weather = obj['weather']['description'];
+        return weather = weather.charAt(0).toUpperCase() + weather.slice(1);
     }
 }
 
+function windDegtoCardinalDirection(obj) {
+    let deg = obj['wind']['deg'];
+    while (deg < 0) deg += 360;
+    while (deg >= 360) deg -= 360;
+    let val = Math.round((deg - 11.25) / 22.5);
+    let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+    return arr[Math.abs(val)];
+}
+
+function displayIcons(obj) {
+    if (obj['weather'].length > 1) {
+        let icons = obj['weather'].map(x => x['icon']);
+        for (let x of icons) {
+            let img = new Image();
+            img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + [x] + ".png?1499366021399";
+            document.getElementById("icon").appendChild(img);
+        }
+
+    } else {
+        let img = new Image();
+        img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + obj['weather'][0]['icon'] + ".png?1499366021399";
+        document.getElementById("icon").appendChild(img);
+    }
+}
+
+function defineWeatherVariables(obj) {
+    geolocation = obj['name'];
+    temp = Math.round(obj['main']['temp']) + tempUnit;
+    // tempMax = obj['main']['temp_max'] + tempUnit;
+    // tempMin = obj['main']['temp_min'] + tempUnit;
+    detailedDescription = detailedWeatherDescription(obj);
+    humidity = 'Humidity: ' + obj['main']['humidity'] + '&#37';
+    pressure = 'Pressure: ' + Math.round(obj['main']['pressure']) + ' hPa';
+    windSpeed = 'Wind: ' + obj['wind']['speed'] + 'km/hr';
+    windDirection = windDegtoCardinalDirection(obj);
+    // sunRise =
+    // sunSet = 
+
+
+
+}
 
 function displayCurrentWeather(obj) {
     defineWeatherVariables(obj);
     document.getElementById("location").innerHTML = geolocation;
     document.getElementById("temperature").innerHTML = temp;
+    displayIcons(obj);
     document.getElementById("description").innerHTML = detailedDescription;
     document.getElementById("humidity").innerHTML = humidity;
+    document.getElementById("pressure").innerHTML = pressure;
     document.getElementById("wind-speed").innerHTML = windSpeed;
-    // document.getElementById("wind-direction").innerHTML = windDirection;
+    document.getElementById("wind-direction").innerHTML = windDirection;
     // document.getElementById("sunrise").innerHTML = sunRise;
     // document.getElementById("sunset").innerHTML = sunSet;
 
