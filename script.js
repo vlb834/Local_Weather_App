@@ -50,18 +50,15 @@ function windDegtoCardinalDirection(obj) {
 }
 
 function displayIcons(obj) {
-    if (obj['weather'].length > 1) {
-        let icons = obj['weather'].map(x => x['icon']);
-        for (let x of icons) {
+    let icons = obj['weather'].map(x => x['icon']);
+    console.log(icons);
+    for (let x of icons) {
+        if (x !== undefined) {
             let img = new Image();
             img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + [x] + ".png?1499366021399";
-            document.getElementById("icon").appendChild(img);
+            console.log(x, img.src);
+            return document.getElementById("icon").appendChild(img);
         }
-
-    } else {
-        let img = new Image();
-        img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + obj['weather'][0]['icon'] + ".png?1499366021399";
-        document.getElementById("icon").appendChild(img);
     }
 }
 
@@ -86,7 +83,7 @@ function displayCurrentWeather(obj) {
     defineWeatherVariables(obj);
     document.getElementById("location").innerHTML = geolocation;
     document.getElementById("temperature").innerHTML = temp;
-    displayIcons(obj);
+    displayIcons(obj); // possibilty of more than one icon for variable weather addressed by function
     document.getElementById("description").innerHTML = detailedDescription;
     document.getElementById("humidity").innerHTML = humidity;
     document.getElementById("pressure").innerHTML = pressure;
