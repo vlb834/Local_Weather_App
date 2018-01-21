@@ -15,11 +15,11 @@ let temp = 0;
 function toggleTempUnit() {
     if (tempUnit === "&#176C") {
         tempUnit = "&#176F";
-        temp = (temp * 9 / 5) + 32;
+        temp = Math.round((temp * 9 / 5) + 32);
         return document.getElementById("temperature").innerHTML = temp + tempUnit;
     } else if (tempUnit === "&#176F") {
         tempUnit = "&#176C";
-        temp = (temp - 32) * 5 / 9;
+        temp = Math.round((temp - 32) * 5 / 9);
         return document.getElementById("temperature").innerHTML = temp + tempUnit;
     }
 }
