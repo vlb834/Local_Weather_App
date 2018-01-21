@@ -72,7 +72,7 @@ function displayIcons(obj) {
         if (x !== undefined) {
             let img = new Image();
             img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + [x] + ".png?1499366021399";
-            return document.getElementById("icon").appendChild(img);
+            document.getElementById("icon").appendChild(img);
         }
     }
 }
