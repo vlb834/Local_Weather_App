@@ -2,6 +2,7 @@
 // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation
 // https://www.sitepoint.com/html5-geolocation/ - Code from this site.
 // http://youmightnotneedjquery.com/ 
+// EPOCH TIME CONVERTER : https://www.epochconverter.com/programming/#javascript
 // CREDITS:
 // windDegtoCardinalDirection courtesy of Pascal's code here: https://stackoverflow.com/questions/7490660/converting-wind-direction-in-angles-to-text-words#7490772
 
@@ -49,7 +50,7 @@ function windDegtoCardinalDirection(obj) {
 
 // showing incorret time - need to fix
 function daylight(obj, sun) {
-    var time = new Date(obj['sys'][sun]);
+    var time =new Date(obj['sys'][sun] * 1000);
     return time.toLocaleTimeString();
 }
 
