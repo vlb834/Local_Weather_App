@@ -67,6 +67,7 @@ img {
 }
 
 details {
+    display: none;
     line-height: 1.6;
     font-weight: 300;
 }
@@ -96,6 +97,7 @@ time {
 }
 
 button {
+    display: none;
     width: 5em;
     margin: 1em auto 0 auto;
 }

@@ -107,6 +107,8 @@ function displayIcons(obj) {
         document.getElementById("wind").innerHTML = windSpeed + ' ' + windDirection;
         document.getElementById("sunrise").innerHTML = sunRise;
         document.getElementById("sunset").innerHTML = sunSet;
+        document.getElementsByTagName("button").style["display"] = ''; 
+        document.getElementsByTagName("details").style["display"] = '';
         // document.getElementById("wallpaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
         document.getElementById("wallpaper").style["background-image"] = gradient;
     }
