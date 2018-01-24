@@ -35,7 +35,8 @@ function detailedWeatherDescription(obj) {
         return weather = weather.slice(0, weather.length - 2) + '.';
     } else {
         weather = obj['weather']['description'];
-        return weather = weather.charAt(0).toUpperCase() + weather.slice(1);
+        weather =  weather.charAt(0).toUpperCase() + weather.slice(1);
+        return weather;
     }
 }
 
@@ -51,14 +52,14 @@ function windDegtoCardinalDirection(obj) {
 
 // showing incorret time - need to fix
 function daylight(obj, sun) {
-    var time =new Date(obj['sys'][sun] * 1000);
+    var time = new Date(obj['sys'][sun] * 1000);
     return time.toLocaleTimeString();
 }
 
-const TempColors = [purple, indigo, darkblue, blue, cornflowerblue, lightblue, yellow, orange, darkorange, orangered, red, darkred];
-const WeatherColors = {Fog: grey, Mist: grey, Drizzle: grey, Rain: blue, Snow: white};
-function assignColors() {
-}
+//const TempColors = [purple, indigo, darkblue, blue, cornflowerblue, lightblue, yellow, orange, darkorange, orangered, red, darkred];
+//const WeatherColors = {Fog: grey, Mist: grey, Drizzle: grey, Rain: blue, Snow: white};
+//function assignColors() {
+//}
 
 function defineWeatherVariables(obj) {
     geolocation = obj['name'];
@@ -72,7 +73,7 @@ function defineWeatherVariables(obj) {
     sunSet = daylight(obj, 'sunset');
     colorTemp = 'yellow';
     colorWeather = 'green';
-    assignColors();
+    // assignColors();
     gradient = 'linear-gradient(45deg, ' + colorTemp + ', ' + colorWeather + ')';
 }
 
@@ -98,8 +99,8 @@ function displayCurrentWeather(obj) {
     document.getElementById("wind").innerHTML = windSpeed + ' ' + windDirection;
     document.getElementById("sunrise").innerHTML = sunRise;
     document.getElementById("sunset").innerHTML = sunSet;
-   // document.getElementById("wallpaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
-   document.getElementById("wallpaper").style["background-image"] = gradient;
+    // document.getElementById("wallpaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
+    document.getElementById("wallpaper").style["background-image"] = gradient;
 }
 
 function getCurrentWeather(latitude, longitude) {
