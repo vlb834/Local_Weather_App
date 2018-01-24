@@ -1,3 +1,5 @@
+
+/* set intervals */
 /* LAYOUT */
 
 body {
@@ -101,8 +103,23 @@ button {
 
 /* Outside of Main */
 
-footer {
+.credit {
     margin: 0 auto;
+    padding: 1em;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: .8em;
+}
+
+/* Code for sticky sidebar found here: https://stackoverflow.com/questions/44446671/my-position-sticky-element-isnt-sticky-when-using-flexbox */
+
+
+.cities {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5);
     padding: 1em;
     color: white;
     font-family: 'Roboto', sans-serif;
