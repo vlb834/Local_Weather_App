@@ -42,7 +42,7 @@ function detailedWeatherDescription(obj) {
     }
 }
 
-/*function windDegtoCardinalDirection(obj) {
+function windDegtoCardinalDirection(obj) {
     //Code via stackoverload - see resources and credits above
     let deg = obj['wind']['deg'];
     while (deg < 0) deg += 360;
@@ -50,7 +50,7 @@ function detailedWeatherDescription(obj) {
     let val = Math.round((deg - 11.25) / 22.5);
     let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
     return arr[Math.abs(val)];
-}*/
+}
 
 // showing incorret time - need to fix
 function daylight(obj, sun) {
@@ -70,11 +70,11 @@ function defineWeatherVariables(obj) {
     humidity = 'Humidity: ' + obj['main']['humidity'] + '&#37';
     pressure = 'Pressure: ' + Math.round(obj['main']['pressure']) + ' hPa';
     windSpeed = 'Wind: ' + obj['wind']['speed'] + 'km/hr';
-   // windDirection = windDegtoCardinalDirection(obj);
+    windDirection = windDegtoCardinalDirection(obj);
     sunRise = daylight(obj, 'sunrise');
     sunSet = daylight(obj, 'sunset');
-    colorTemp = 'yellow';
-    colorWeather = 'green';
+    colorTemp = 'blue';
+    colorWeather = 'grey';
     // assignColors();
     gradient = 'linear-gradient(45deg, ' + colorTemp + ', ' + colorWeather + ')';
 }
@@ -104,7 +104,7 @@ function displayIcons(obj) {
         document.getElementById("description").innerHTML = detailedDescription;
         document.getElementById("humidity").innerHTML = humidity;
         document.getElementById("pressure").innerHTML = pressure;
-        document.getElementById("wind").innerHTML = windSpeed //+ ' ' + windDirection;
+        document.getElementById("wind").innerHTML = windSpeed + ' ' + windDirection;
         document.getElementById("sunrise").innerHTML = sunRise;
         document.getElementById("sunset").innerHTML = sunSet;
         // document.getElementById("wallpaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
