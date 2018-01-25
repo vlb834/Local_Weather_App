@@ -26,7 +26,6 @@ function toggleTempUnit() {
 }
 
 function detailedWeatherDescription(obj) {
-    console.log('check', obj);
     if (obj['weather'].length > 1) {
         let descriptions = obj['weather'].map(x => x['description']);
         let weather = 'Mix of ';
@@ -107,9 +106,10 @@ function displayIcons(obj) {
         document.getElementById("wind").innerHTML = windSpeed + ' ' + windDirection;
         document.getElementById("sunrise").innerHTML = sunRise;
         document.getElementById("sunset").innerHTML = sunSet;
-        document.getElementsByTagName("button").style["display"] = ''; 
-        document.getElementsByTagName("details").style["display"] = '';
-        // document.getElementById("wallpaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
+        document.getElementById("details").style.display = 'block';
+        document.getElementById("toggleTemp").style.color = colorWeather;
+        document.getElementById("toggleTemp").style.display = 'block';
+        // document.getElementByItoggleTemppaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
         document.getElementById("wallpaper").style["background-image"] = gradient;
     }
 

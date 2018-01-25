@@ -1,5 +1,3 @@
-
-/* set intervals */
 /* LAYOUT */
 
 body {
@@ -25,8 +23,7 @@ body {
 }
 
 
-/* FORMATTING 
-Roboto:300,400,400italic,700
+/* FORMATTING  - fonts avail: Roboto:300,400,400italic,700
 */
 
 main {
@@ -38,7 +35,7 @@ main {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    /* text formatting */
+    /* text formatting to cascade */
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 1em;
@@ -100,6 +97,20 @@ button {
     display: none;
     width: 5em;
     margin: 1em auto 0 auto;
+    padding: .5em;
+    padding-bottom: .6em;
+    color: blue;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: solid 1px transparent;
+    border-radius: 3px;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+button:active {
+    border: solid 1px white;
 }
 
 
@@ -114,8 +125,8 @@ button {
     font-size: .8em;
 }
 
-/* Code for sticky sidebar found here: https://stackoverflow.com/questions/44446671/my-position-sticky-element-isnt-sticky-when-using-flexbox */
 
+/* Code for sticky sidebar found here: https://stackoverflow.com/questions/44446671/my-position-sticky-element-isnt-sticky-when-using-flexbox */
 
 .cities {
     display: flex;
@@ -135,5 +146,3 @@ button {
 #wallpaper {
     background-image: linear-gradient(45deg, red, blue);
 }
-
-
