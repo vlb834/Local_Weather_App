@@ -8,7 +8,6 @@
 // windDegtoCardinalDirection courtesy of Pascal's code here: https://stackoverflow.com/questions/7490660/converting-wind-direction-in-angles-to-text-words#7490772
 
 
-
 // GLOBAL VARIABLES //
 let tempUnit = "&#176C";
 let temp = 0;
@@ -25,36 +24,35 @@ function toggleTempUnit() {
     }
 }
 
-function detailedWeatherDescription(obj) {
-    if (obj['weather'].length > 1) {
-        let descriptions = obj['weather'].map(x => x['description']);
-        let weather = 'Mix of ';
+function detailedWeatherDescription(weather) {
+    if (weather.length > 1) {
+        let descriptions = weather.map(x => x['description']);
+        let weatherLocal = 'Mix of ';
         for (let x of descriptions) {
-            weather = weather.concat(x + ', ');
+            weatherLocal = weatherLocal.concat(x + ', ');
         }
-        return weather = weather.slice(0, weather.length - 2) + '.';
+        return weatherLocal = weatherLocal.slice(0, weatherLocal.length - 2) + '.';
     } else {
-        console.log(obj['weather'][0]['description']);
-        weather = obj['weather'][0]['description'];
-        weather = weather.charAt(0).toUpperCase() + weather.slice(1);
-        return weather;
+        console.log(weather[0]['description']);
+        weatherLocal = weather[0]['description'];
+        weatherLocal = weatherLocal.charAt(0).toUpperCase() + weather.slice(1);
+        return weatherLocal;
     }
 }
 
-function windDegtoCardinalDirection(obj) {
+function windDegtoCardinalDirection(degrees) {
     //Code via stackoverload - see resources and credits above
-    let deg = obj['wind']['deg'];
-    while (deg < 0) deg += 360;
-    while (deg >= 360) deg -= 360;
-    let val = Math.round((deg - 11.25) / 22.5);
+    while (degrees < 0) degrees += 360;
+    while (degrees >= 360) degrees -= 360;
+    let val = Math.round((degrees - 11.25) / 22.5);
     let arr = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
     return arr[Math.abs(val)];
 }
 
-// showing incorret time - need to fix
-function daylight(obj, sun) {
-    var time = new Date(obj['sys'][sun] * 1000);
-    return time.toLocaleTimeString();
+function daylight(sunData) {
+    console.log(sunData);
+    let time = new Date(sunData * 1000);
+    return time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 }
 
 //const TempColors = [purple, indigo, darkblue, blue, cornflowerblue, lightblue, yellow, orange, darkorange, orangered, red, darkred];
@@ -62,25 +60,25 @@ function daylight(obj, sun) {
 //function assignColors() {
 //}
 
-function defineWeatherVariables(obj) {
-    geolocation = obj['name'];
-    temp = Math.round(obj['main']['temp']);
-    detailedDescription = detailedWeatherDescription(obj);
-    humidity = 'Humidity: ' + obj['main']['humidity'] + '&#37';
-    pressure = 'Pressure: ' + Math.round(obj['main']['pressure']) + ' hPa';
-    windSpeed = 'Wind: ' + obj['wind']['speed'] + 'km/hr';
-    windDirection = windDegtoCardinalDirection(obj);
-    sunRise = daylight(obj, 'sunrise');
-    sunSet = daylight(obj, 'sunset');
+function defineWeatherVariables(weatherData) {
+    geolocation = weatherData['name'];
+    temp = Math.round(weatherData['main']['temp']);
+    detailedDescription = detailedWeatherDescription(weatherData['weather']);
+    humidity = 'Humidity: ' + weatherData['main']['humidity'] + '&#37';
+    pressure = 'Pressure: ' + Math.round(weatherData['main']['pressure']) + ' hPa';
+    windSpeed = 'Wind: ' + weatherData['wind']['speed'] + 'km/hr';
+    windDirection = windDegtoCardinalDirection(weatherData['wind']['deg']);
+    sunRise = daylight(weatherData['sys']['sunrise']);
+    sunSet = daylight(weatherData['sys']['sunset']);
     colorTemp = 'blue';
     colorWeather = 'grey';
     // assignColors();
     gradient = 'linear-gradient(45deg, ' + colorTemp + ', ' + colorWeather + ')';
 }
 
-function displayIcons(obj) {
-    if (obj['weather'].length > 1) {
-        let icons = obj['weather'].map(x => x['icon']);
+function displayIcons(weather) {
+    if (weather.length > 1) {
+        let icons = weather.map(x => x['icon']);
         for (let x of icons) {
             if (x !== undefined) {
                 let img = new Image();
@@ -90,14 +88,14 @@ function displayIcons(obj) {
         } 
     } else {
         let img = new Image();
-        img.src = obj['weather'][0]['icon'];
+        img.src = weather[0]['icon']; // check this works!!! 
         document.getElementById("icon").appendChild(img);
     }
 }    
 
-    function displayCurrentWeather(obj) {
-        defineWeatherVariables(obj);
-        displayIcons(obj); // possible multiple icons for variable weather addressed by function
+    function displayCurrentWeather(weatherData) {
+        defineWeatherVariables(weatherData);
+        displayIcons(weatherData['weather']); // possible multiple icons for variable weather addressed by function
         document.getElementById("location").innerHTML = geolocation;
         document.getElementById("temperature").innerHTML = temp + tempUnit;
         document.getElementById("description").innerHTML = detailedDescription;
@@ -107,7 +105,6 @@ function displayIcons(obj) {
         document.getElementById("sunrise").innerHTML = sunRise;
         document.getElementById("sunset").innerHTML = sunSet;
         document.getElementById("details").style.display = 'block';
-        document.getElementById("toggleTemp").style.color = colorWeather;
         document.getElementById("toggleTemp").style.display = 'block';
         // document.getElementByItoggleTemppaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
         document.getElementById("wallpaper").style["background-image"] = gradient;
