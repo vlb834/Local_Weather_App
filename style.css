@@ -67,12 +67,16 @@ header {
     font-size: 2em;
 }
 
-figure {
+#icon {
     margin: 0;
 }
 
 img {
     height: 6em;
+}
+
+.pageLoadIcon {
+    display: none;
 }
 
 details {

@@ -11,6 +11,8 @@
 // GLOBAL VARIABLES //
 let tempUnit = "&#176C";
 let temp = 0;
+let latitude = '';
+let longitude = '';
 
 function toggleTempUnit() {
     if (tempUnit === "&#176C") {
@@ -33,7 +35,6 @@ function detailedWeatherDescription(weather) {
         }
         return weatherLocal = weatherLocal.slice(0, weatherLocal.length - 2) + '.';
     } else {
-        console.log(weather[0]['description']);
         weatherLocal = weather[0]['description'];
         weatherLocal = weatherLocal.charAt(0).toUpperCase() + weather.slice(1);
         return weatherLocal;
@@ -50,7 +51,6 @@ function windDegtoCardinalDirection(degrees) {
 }
 
 function daylight(sunData) {
-    console.log(sunData);
     let time = new Date(sunData * 1000);
     return time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 }
@@ -77,20 +77,23 @@ function defineWeatherVariables(weatherData) {
 }
 
 function displayIcons(weather) {
+    let iconFigure = document.getElementById('icon');
+    while (iconFigure.firstChild) {
+        iconFigure.removeChild(iconFigure.firstChild);
+    }
+    let newIcon = new Image();
     if (weather.length > 1) {
         let icons = weather.map(x => x['icon']);
         for (let x of icons) {
             if (x !== undefined) {
-                let img = new Image();
-                img.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + [x] + ".png?1499366021399";
-                document.getElementById("icon").appendChild(img);
+                newIcon.src = "https://cdn.glitch.com/6e8889e5-7a72-48f0-a061-863548450de5%2F" + [x] + ".png?1499366021399";
+                document.getElementById('icon').appendChild(newIcon);
             }
         }
     } else {
-        let img = new Image();
-        img.src = weather[0]['icon']; // check this works!!! 
-        document.getElementById("icon").appendChild(img);
-    }
+        newIcon.src = weather[0]['icon']; 
+        document.getElementById('icon').appendChild(newIcon);
+    } 
 }
 
 function displayCurrentWeather(weatherData) {
@@ -130,8 +133,9 @@ function getCurrentWeather(latitude, longitude) {
 }
 
 function usePosition(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
+    console.log("geoLocation: ", latitude, longitude);
     getCurrentWeather(latitude, longitude);
 }
 
@@ -152,6 +156,17 @@ function showError(error) {
     }
 }
 
+function nyc() {
+    latitude = 40.4;
+    longitude = -73.56;
+    getCurrentWeather(latitude, longitude);
+}
+function la() {
+    latitude = 34.04;
+    longitude = -118.15;
+    getCurrentWeather(latitude, longitude);
+}
+
 // JS FOR PAGE LOAD - retrieve HTML5 geolocation// 
 
 function run() {
@@ -165,7 +180,7 @@ function run() {
 // in case the document is already rendered
 if (document.readyState != 'loading') run();
 // modern browsers
-else if (document.addEventListener) document.addEventListener('DOMContentLoaded', run());
+else if (document.addEventListener) document.addEventListener('DOMContentLoaded', run);
 // IE <= 8
 else document.attachEvent('onreadystatechange', function () {
     if (document.readyState == 'complete') run();
@@ -173,4 +188,22 @@ else document.attachEvent('onreadystatechange', function () {
 
 window.onload = function () {
     document.getElementById("toggleTemp").addEventListener("click", toggleTempUnit, false);
+    document.getElementById("ny").addEventListener("click", nyc, false);
+    document.getElementById("la").addEventListener("click", la, false);
+
+
 }
+
+/*
+40°40′N	73°56′W	New York City
+34°03′N	118°15′W	Los Angeles
+22°55′S	43°12′W	Rio de Janeiro
+40°23′N	3°43′W	Madrid
+52°31′N	13°23′E	Berlin
+30°03′N	31°14′E	Cairo
+13°45′N	100°28′E	Bangkok
+33°52′S	151°13′E	Sydney
+
+
+
+*/
