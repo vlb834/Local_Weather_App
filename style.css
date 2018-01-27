@@ -26,6 +26,17 @@ body {
 /* FORMATTING  - fonts avail: Roboto:300,400,400italic,700
 */
 
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after, *:focus  {
+    box-sizing: inherit;
+     outline: none;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -69,8 +80,24 @@ details {
     font-weight: 300;
 }
 
-*:focus {
-    outline: none;
+details[open] {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+summary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 7em;
+    margin: auto;
+    border-radius: 3px;
+    text-align: center;
+}
+
+summary:active {
+    border: solid 1px white;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 #description {
@@ -97,20 +124,22 @@ button {
     display: none;
     width: 5em;
     margin: 1em auto 0 auto;
-    padding: .5em;
-    padding-bottom: .6em;
-    color: blue;
-    background-color: rgba(255, 255, 255, 0.5);
+    padding: .4em;
+    padding-bottom: .5em;
+    color: white;
+    background-color: transparent;
     border: solid 1px transparent;
     border-radius: 3px;
     text-align: center;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 button:active {
     border: solid 1px white;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 
