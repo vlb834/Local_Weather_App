@@ -43,7 +43,7 @@ main {
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.4);
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -79,6 +79,7 @@ details {
     display: none;
     line-height: 1.6;
     font-weight: 300;
+    letter-spacing: .1em;
 }
 
 details[open] {
@@ -89,7 +90,7 @@ details[open] {
 }
 
 summary:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    text-decoration: underline;
     width: 7em;
     margin: auto;
     border-radius: 3px;
@@ -97,7 +98,6 @@ summary:hover {
 }
 
 summary:active {
-    border: solid 1px white;
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -135,12 +135,11 @@ button {
 }
 
 button:active {
-    border: solid 1px white;
     background-color: rgba(255, 255, 255, 0.2);
 }
 
 button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    text-decoration: underline;
 }
 
 
@@ -160,14 +159,29 @@ button:hover {
 
 .cities {
     display: flex;
+    justify-content: space-between;
     position: fixed;
+    width: 100vh;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.2);
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 3px 3px 0px 0px;
+    border-radius: 3px 3px 0px 0px;
     padding: 1em;
     color: white;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+    letter-spacing: .1em;
     font-size: .8em;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    text-decoration: underline;
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 
