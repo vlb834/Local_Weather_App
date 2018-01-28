@@ -15,6 +15,19 @@ let latitude = '';
 let longitude = '';
 let city = '';
 
+// CITY WEATHER NAVIGATION BAR FUNCTIONS //
+function nyc() { latitude = 40.71278; longitude = -74.00597; getCurrentWeather(latitude, longitude); city = 'New York'; }
+function la() { latitude = 34.05223; longitude = -118.24368; getCurrentWeather(latitude, longitude); city = 'Los Angeles'; }
+function rio() { latitude = -22.90685; longitude = -43.17290; getCurrentWeather(latitude, longitude); city = 'Rio de Janeiro';  }
+function madrid() { latitude = 40.41678; longitude = -3.70379; getCurrentWeather(latitude, longitude); city = 'Madrid'; }
+function berlin() { latitude = 52.52001; longitude = 13.40495; getCurrentWeather(latitude, longitude); city = 'Berlin'; }
+function cairo() { latitude = 30.04442; longitude = 31.23571; getCurrentWeather(latitude, longitude); city = 'Cairo'; }
+function bangkok() { latitude = 13.75633; longitude = 100.50177; getCurrentWeather(latitude, longitude); city = 'Bangkok'; }
+function sydney() { latitude = -33.86882; longitude = 151.20930; getCurrentWeather(latitude, longitude); city = 'Sydney';  }
+function north() { latitude = 90.00; longitude = 0; getCurrentWeather(latitude, longitude); city = 'North Pole'}
+function south() { latitude = -90.00; longitude = 0; getCurrentWeather(latitude, longitude); city = 'South Pole'; }
+
+// CELSIUS < - > FAHRENHEIT CHANGE // 
 function toggleTempUnit() {
     if (tempUnit === "&#176C") {
         tempUnit = "&#176F";
@@ -27,6 +40,7 @@ function toggleTempUnit() {
     }
 }
 
+// JSON OBJECT WEATHER DATA - EXTRACTION OF NEEDED INFO FUNCTIONS // 
 function detailedWeatherDescription(weather) {
     if (weather.length > 1) {
         let descriptions = weather.map(x => x['description']);
@@ -99,9 +113,10 @@ function displayIcons(weather) {
     }
 }
 
+//  DOM MANIPULTION - DISPLAY WEATHER // 
 function displayCurrentWeather(weatherData) {
     defineWeatherVariables(weatherData);
-    displayIcons(weatherData['weather']); // possible multiple icons for variable weather addressed by function
+    displayIcons(weatherData['weather']);
     document.getElementById("location").innerHTML = geolocation;
     document.getElementById("temperature").innerHTML = temp + tempUnit;
     document.getElementById("description").innerHTML = detailedDescription;
@@ -116,6 +131,7 @@ function displayCurrentWeather(weatherData) {
     document.getElementById("wallpaper").style["background-image"] = gradient;
 }
 
+// WEATHER API JSON REQUEST // 
 function getCurrentWeather(latitude, longitude) {
     var request = new XMLHttpRequest();
     request.open('GET', 'https://fcc-weather-api.glitch.me/api/current?lat=' + latitude + '&lon=' + longitude, true);
@@ -135,6 +151,7 @@ function getCurrentWeather(latitude, longitude) {
     request.send();
 }
 
+// JS FOR PAGE LOAD - REQUEST USE GEOLOCATION// 
 function usePosition(position) {
     latitude = position.coords.latitude;
     longitude = position.coords.longitude;
@@ -159,19 +176,6 @@ function showError(error) {
     }
 }
 
-function nyc() { latitude = 40.71278; longitude = -74.00597; getCurrentWeather(latitude, longitude); city = 'New York'; }
-function la() { latitude = 34.05223; longitude = -118.24368; getCurrentWeather(latitude, longitude); city = 'Los Angeles'; }
-function rio() { latitude = -22.90685; longitude = -43.17290; getCurrentWeather(latitude, longitude); city = 'Rio de Janeiro';  }
-function madrid() { latitude = 40.41678; longitude = -3.70379; getCurrentWeather(latitude, longitude); city = 'Madrid'; }
-function berlin() { latitude = 52.52001; longitude = 13.40495; getCurrentWeather(latitude, longitude); city = 'Berlin'; }
-function cairo() { latitude = 30.04442; longitude = 31.23571; getCurrentWeather(latitude, longitude); city = 'Cairo'; }
-function bangkok() { latitude = 13.75633; longitude = 100.50177; getCurrentWeather(latitude, longitude); city = 'Bangkok'; }
-function sydney() { latitude = -33.86882; longitude = 151.20930; getCurrentWeather(latitude, longitude); city = 'Sydney';  }
-function north() { latitude = 90.00; longitude = 0; getCurrentWeather(latitude, longitude); city = 'North Pole'}
-function south() { latitude = -90.00; longitude = 0; getCurrentWeather(latitude, longitude); city = 'South Pole'; }
-
-// JS FOR PAGE LOAD - retrieve HTML5 geolocation// 
-
 function run() {
     if (navigator.geolocation) {
         // Get the user's current position
@@ -189,6 +193,7 @@ else document.attachEvent('onreadystatechange', function () {
     if (document.readyState == 'complete') run();
 });
 
+// DOM EVENT LISTENTERS // 
 window.onload = function () {
     document.getElementById("toggleTemp").addEventListener("click", toggleTempUnit, false);
     document.getElementById("ny").addEventListener("click", nyc, false);
