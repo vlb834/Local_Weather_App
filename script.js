@@ -14,6 +14,8 @@ let temp = 0;
 let latitude = '';
 let longitude = '';
 let city = '';
+let colorTemp = 'red';
+let colorWeather = 'blue';
 
 // CITY WEATHER NAVIGATION BAR FUNCTIONS //
 function nyc() { latitude = 40.71278; longitude = -74.00597; getCurrentWeather(latitude, longitude); city = 'New York'; }
@@ -38,6 +40,63 @@ function toggleTempUnit() {
         temp = Math.round((temp - 32) * 5 / 9);
         return document.getElementById("temperature").innerHTML = temp + tempUnit;
     }
+}
+
+// GRADIENT COLORS BASED ON WEATHER DATA // 
+const tempColors = new Map([
+    [-35, 'indigo'],
+    [-30, 'indigo'],
+    [-25, 'indigo'],
+    [-20, 'indigo'],
+    [-15, 'indigo'],
+    [-10, 'indigo'],
+    [-5, 'midnightblue'],
+    [0, 'darkblue'],
+    [5, 'blue'],
+    [10, 'cornflowerblue'],
+    [15, 'lightskyblue'],
+    [20, 'khaki'],
+    [25, 'gold'],
+    [30, 'orange'],
+    [35, 'darkorange'],
+    [40, 'orangered'],
+    [45, 'firebrickred'],
+    [50, 'maroon']
+]);
+
+const weatherColors = new Map([
+    [232, 'darkgrey'], // Thunderstorm 
+    [321, 'lightslategrey'], // Drizzle
+    [531, 'slategrey'], // Rain
+    [622, 'snow'], // Snow
+    [701, 'lightsteelblue'], // Mist
+    [781, 'dimgray'], // Smoke/Haze/Dust/Ash/Tornado
+    [800, 'deepskyblue'], // Clear
+    [804, 'steelblue'], // Clouds
+    [906, 'red'], // Extreme
+    [954, 'cadetblue'], // Wind
+    [962, 'teal'] // Extreme Wind
+]);
+
+function defineTempColor(temp) {
+    let range = Math.ceil(temp/5)*5;
+    colorTemp = tempColors.get(range);
+}
+
+function defineWeatherColor(weather) {
+    let range = 0;
+    if (weather <= 232 && weather > 0) { range = 232; }
+    if (weather <= 321 && weather > 232) { range = 321; }
+    if (weather <= 531 && weather > 321) { range = 531; }
+    if (weather <= 622 && weather > 531) { range = 622; }
+    if (weather <= 701 && weather > 622) { range = 701; }
+    if (weather <= 781 && weather > 701) { range = 781; }
+    if (weather <= 800 && weather > 781) { range = 800; }
+    if (weather <= 804 && weather > 800) { range = 804; }
+    if (weather <= 906 && weather > 804) { range = 906; }
+    if (weather <= 954 && weather > 906) { range = 954; }
+    if (weather <= 962 && weather > 954) { range = 962; }
+    colorWeather  = weatherColors.get(range);
 }
 
 // JSON OBJECT WEATHER DATA - EXTRACTION OF NEEDED INFO FUNCTIONS // 
@@ -65,15 +124,10 @@ function windDegtoCardinalDirection(degrees) {
     return arr[Math.abs(val)];
 }
 
-function daylight(sunData) { //set time zone for CITIES
+function daylight(sunData) { // TO DO - Display sunset sunrise correctly for local city timezone and user - geolocation
     let time = new Date(sunData * 1000);
-    return time.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+    return time.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 }
-
-//const TempColors = [purple, indigo, darkblue, blue, cornflowerblue, lightblue, yellow, orange, darkorange, orangered, red, darkred];
-//const WeatherColors = {Fog: grey, Mist: grey, Drizzle: grey, Rain: blue, Snow: white};
-//function assignColors() {
-//}
 
 function defineWeatherVariables(weatherData) {
     geolocation = weatherData['name'];
@@ -88,8 +142,8 @@ function defineWeatherVariables(weatherData) {
     windDirection = windDegtoCardinalDirection(weatherData['wind']['deg']);
     sunRise = daylight(weatherData['sys']['sunrise']); // need to set time zone!! 
     sunSet = daylight(weatherData['sys']['sunset']); // need to set time zone!! 
-    colorTemp = 'blue';
-    colorWeather = 'grey';
+    defineTempColor(weatherData['main']['temp']);
+    defineWeatherColor(weatherData['weather'][0]['id']);
     gradient = 'linear-gradient(45deg, ' + colorTemp + ', ' + colorWeather + ')';
 }
 
@@ -127,7 +181,6 @@ function displayCurrentWeather(weatherData) {
     document.getElementById("sunset").innerHTML = sunSet;
     document.getElementById("details").style.display = 'block';
     document.getElementById("toggleTemp").style.display = 'block';
-    // document.getElementByItoggleTemppaper").style["background-image"] = 'linear-gradient(45deg, green, yellow)';
     document.getElementById("wallpaper").style["background-image"] = gradient;
 }
 
@@ -140,7 +193,8 @@ function getCurrentWeather(latitude, longitude) {
             // Success!
             var weatherData = JSON.parse(this.response);
             console.log(weatherData);
-            displayCurrentWeather(weatherData);
+            displayCurrentWeather(weatherData); 
+            // Delay the display?  window.setTimeout(displayCurrentWeather(weatherData), 1000);
         } else {
             // We reached our target server, but it returned an error
         }
