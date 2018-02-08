@@ -254,6 +254,12 @@ function toggleNav() {
     document.getElementById("mobileMenu").style.display = 'none';
     document.getElementById("cities").style.display = 'flex';
 }
+function hideCities() {
+    document.getElementById("mobileMenu").style.display = 'block';
+    document.getElementById("cities").style.display = 'none';
+}
+
+
 
 // DOM EVENT LISTENTERS // 
 window.onload = function () {
@@ -269,4 +275,5 @@ window.onload = function () {
     document.getElementById("sydney").addEventListener("click", sydney, false);
     document.getElementById("north").addEventListener("click", north, false);
     document.getElementById("south").addEventListener("click", south, false);
+    document.getElementById("hideCities").addEventListener("click", hideCities, false);
 }

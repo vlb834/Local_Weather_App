@@ -225,6 +225,11 @@ a:active {
 #mobileMenu {
     width: 100%;
     display: none;
+}  
+
+#hideCities {
+    display: none;
+    
 }
 
 @media (max-width: 767px) {
@@ -237,12 +242,20 @@ a:active {
         position: fixed;
         bottom: 0;
     }
+    #hideCities {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
     #cities {
         display: none;
         flex-direction: column;
         align-items: center;
         position: fixed;
-        width: 100%;
+        min-width: 300px;
+        width: 95%;
+        max-width: 95%;
         bottom: 0;
         background-color: rgba(255, 255, 255, 0.2);
         -moz-border-radius: 0px;
@@ -259,6 +272,7 @@ a:active {
     .credit {
         font-size: .5em;
     }
+
 }
 
 
