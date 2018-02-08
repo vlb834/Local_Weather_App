@@ -21,6 +21,7 @@ body {
     height: 500px;
     /* width and height can be anything, as long as they're equal */
 }
+<<<<<<< HEAD
 @media (max-width: 767px) {
     body {
         height: 85%;
@@ -40,6 +41,28 @@ body {
         height: 280px;
     }
 }
+||||||| merged common ancestors
+=======
+@media (max-width: 767px) {
+    body {
+        height: 85%;
+    }
+    .circle {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        height: 70%;
+    }
+    .circle {
+        width: 300px;
+        height: 300px;
+    }
+}
+>>>>>>> fd2a83b2a9ea685401924685dc80bbf673553b82
 
 
 /* FORMATTING  - fonts avail: Roboto:300,400,400italic,700 */
