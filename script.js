@@ -42,6 +42,7 @@ function toggleTempUnit() {
     }
 }
 
+
 // GRADIENT COLORS BASED ON WEATHER DATA // 
 const tempColors = new Map([
     [-35, 'indigo'],
@@ -247,9 +248,17 @@ else document.attachEvent('onreadystatechange', function () {
     if (document.readyState == 'complete') run();
 });
 
+
+// RESPONSIVE NAVIGATION MENU //
+function toggleNav() {
+    document.getElementById("mobileMenu").style.display = 'none';
+    document.getElementById("cities").style.display = 'flex';
+}
+
 // DOM EVENT LISTENTERS // 
 window.onload = function () {
     document.getElementById("toggleTemp").addEventListener("click", toggleTempUnit, false);
+    document.getElementById("mobileMenu").addEventListener("click", toggleNav, false);
     document.getElementById("ny").addEventListener("click", nyc, false);
     document.getElementById("la").addEventListener("click", la, false);
     document.getElementById("rio").addEventListener("click", rio, false);
