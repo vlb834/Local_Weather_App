@@ -21,10 +21,28 @@ body {
     height: 500px;
     /* width and height can be anything, as long as they're equal */
 }
+@media (max-width: 767px) {
+    body {
+        height: 85%;
+    }
+    .circle {
+        width: 400px;
+        height: 400px;
+    }
+}
+
+@media (max-width: 520px) {
+    body {
+        height: 70%;
+    }
+    .circle {
+        width: 300px;
+        height: 300px;
+    }
+}
 
 
-/* FORMATTING  - fonts avail: Roboto:300,400,400italic,700
-*/
+/* FORMATTING  - fonts avail: Roboto:300,400,400italic,700 */
 
 html {
     box-sizing: border-box;
@@ -53,6 +71,18 @@ main {
     font-size: 1em;
     text-align: center;
     color: white;
+}
+
+@media (max-width: 767px) {
+    main {
+        font-size: .8em;
+    }
+}
+
+@media (max-width: 520px) {
+    main {
+        font-size: .6em;
+    }
 }
 
 header {
@@ -126,7 +156,6 @@ time {
 }
 
 button {
-    display: none;
     width: 5em;
     margin: 1em auto 0 auto;
     padding: .4em;
@@ -146,6 +175,10 @@ button:hover {
     text-decoration: underline;
 }
 
+#toggleTemp {
+    display: none;
+}
+
 
 /* Outside of Main */
 
@@ -160,12 +193,22 @@ button:hover {
 
 
 /* Code for sticky sidebar found here: https://stackoverflow.com/questions/44446671/my-position-sticky-element-isnt-sticky-when-using-flexbox */
+a:hover {
+    text-decoration: underline;
+}
 
-.cities {
+a:active {
+    text-decoration: underline;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#cities {
     display: flex;
     justify-content: space-between;
     position: fixed;
-    width: 100vh;
+    min-width: 760px;
+    width: 80%;
+    max-width: 90%;
     bottom: 0;
     background-color: rgba(255, 255, 255, 0.2);
     -moz-border-radius: 0px;
@@ -179,14 +222,45 @@ button:hover {
     font-size: .8em;
 }
 
-a:hover {
-    text-decoration: underline;
+#mobileMenu {
+    width: 100%;
+    display: none;
 }
 
-a:active {
-    text-decoration: underline;
-    background-color: rgba(255, 255, 255, 0.2);
+@media (max-width: 767px) {
+    a {
+        padding-top: 5px;
+    }
+    #mobileMenu {
+        width: 100%;
+        display: block;
+        position: fixed;
+        bottom: 0;
+    }
+    #cities {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        background-color: rgba(255, 255, 255, 0.2);
+        -moz-border-radius: 0px;
+        -webkit-border-radius: 3px 3px 0px 0px;
+        border-radius: 3px 3px 0px 0px;
+        padding: .5em;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 300;
+        line-height: 1.2em;
+        letter-spacing: .1em;
+        font-size: .7em;
+    }
+    .credit {
+        font-size: .5em;
+    }
 }
+
 
 
 /* MUTABLE CONTENT  */
